@@ -1,0 +1,100 @@
+﻿<Window x:Class="MemoryGame.View.GameView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:model="clr-namespace:MemoryGame.ViewModel" xmlns:model1="clr-namespace:MemoryGame.Model" d:DataContext="{d:DesignInstance Type=model1:GameModel}"
+        mc:Ignorable="d"
+        Title="GameView" Height="710" Width="1000">
+
+    <Grid Background="DarkBlue">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="184*"/>
+            <RowDefinition Height="163*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="131*"/>
+            <ColumnDefinition Width="169*"/>
+        </Grid.ColumnDefinitions>
+        <Canvas Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <Grid Height="250" Width="200" Canvas.Top="15" Canvas.Left="15" Background="Bisque">
+                <Image Width="150" Height="180" Margin="0,-40,0,0" Source="{Binding Game.Player.ProfilePicture}"></Image>
+                <TextBlock TextAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Center" TextWrapping="Wrap" Width="100" Margin="0,183,0,0" Text="{Binding Game.Player.UserName}"/>
+                <TextBlock Width="35" FontSize="24" FontWeight="Bold" Foreground="Green" VerticalAlignment="Bottom" Margin="30,0,0,15" HorizontalAlignment="Left">W:</TextBlock>
+                <TextBlock Width="35" FontSize="24" FontWeight="Bold" Foreground="Green" VerticalAlignment="Bottom" Margin="65,0,0,15" HorizontalAlignment="Left" Text="{Binding Game.Player.GamesWon}"></TextBlock>
+                <TextBlock Width="35" FontSize="24" FontWeight="Bold" Foreground="Purple" VerticalAlignment="Bottom" Margin="0,0,55,15" HorizontalAlignment="Right">T:</TextBlock>
+                <TextBlock Width="35" FontSize="24" FontWeight="Bold" Foreground="Purple" VerticalAlignment="Bottom" Margin="0,0,30,15" HorizontalAlignment="Right" Text="{Binding Game.Player.GamesPlayed}"></TextBlock>
+            </Grid>
+
+            <Menu Canvas.Top="265" Canvas.Left="15" Background="Bisque">
+                <Menu.Items>
+                    <MenuItem Header="Game"  Height="30" Width="100" Foreground="Black" FontSize="24" FontWeight="Bold">
+                        <MenuItem Header="New Game" Command="{Binding NewGameCommand}"></MenuItem>
+                        <MenuItem Header="Save Game" Command="{Binding SaveGameCommand}"></MenuItem>
+                        <MenuItem Header="Load Game"/>
+                        <MenuItem Header="Exit Game"></MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="About" Width="100" Foreground="Black" FontSize="24" FontWeight="Bold" />
+                </Menu.Items>
+            </Menu>
+            <TextBlock Canvas.Top="350" HorizontalAlignment="Center" Text="{Binding Timer.Time, StringFormat=Elapsed Time: {0}}" Foreground="Green" FontSize="20" FontWeight="Bold" />
+            <DockPanel Canvas.Bottom="150" HorizontalAlignment="Center" Canvas.Top="398" VerticalAlignment="Top">
+                <DockPanel DataContext="{Binding Game}" MinWidth="200" Height="34" >
+                    <StackPanel Visibility="{Binding WinMessage}" Height="40"  Margin="5,0,0,0">
+                        <TextBlock FontWeight="Bold" Foreground="Green" FontSize="20">You Won!</TextBlock>
+                    </StackPanel>
+                    <StackPanel  Visibility="{Binding LostMessage}" Height="30" Margin=" 20,0,0,0" >
+                        <TextBlock FontWeight="Bold" Foreground="Red" FontSize="20"><Run Text="You Lost!"/></TextBlock>
+                    </StackPanel>
+                </DockPanel>
+            </DockPanel>
+            <TextBlock  Foreground="DarkBlue" FontSize="18" Background="White"  Height="30" Canvas.Left="10" Canvas.Top="437" Text="Match Attempts"  FontWeight="Bold"/>
+            <TextBlock Text="{Binding Game.MatchAttempts}" Foreground="DarkBlue" FontSize="22" Height="30" Background="White" Width="36" Canvas.Left="164" Canvas.Top="437" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <TextBlock  Foreground="DarkBlue" FontSize="18" Background="White"  Height="30" Canvas.Left="10" Canvas.Top="491" Text="Game Level        "  FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <TextBlock Text="{Binding Game.GameLevel}" Foreground="DarkBlue" FontSize="22" Height="30" Background="White" Width="36" Canvas.Left="164" Canvas.Top="491" HorizontalAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+                <TextBlock.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <Button Content="Stats" Canvas.Bottom="50" Canvas.Left="80" FontSize="24" FontWeight="Bold" Click="Stats"></Button>
+
+
+
+            <Grid x:Name="gameGrid"  Width="750" Height="650" Canvas.Top="15" Canvas.Right="15">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition Height="216.667"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Row="0" Grid.Column="0" x:Name="button1"/>
+                <Button Grid.Row="0" Grid.Column="1" x:Name="button2"/>
+                <Button Grid.Row="0" Grid.Column="2" x:Name="button3"/>
+                <Button Grid.Row="1" Grid.Column="0" x:Name="button4"/>
+                <Button Grid.Row="1" Grid.Column="1" x:Name="button5"/>
+                <Button Grid.Row="1" Grid.Column="2" x:Name="button6"/>
+                <Button Grid.Row="2" Grid.Column="0" x:Name="button7"/>
+                <Button Grid.Row="2" Grid.Column="1" x:Name="button8"/>
+                <Button Grid.Row="2" Grid.Column="2" x:Name="button9"/>
+            </Grid>
+        </Canvas>
+    </Grid>
+</Window>
